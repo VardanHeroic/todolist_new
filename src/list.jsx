@@ -7,17 +7,18 @@ export default function List() {
 	const editing = useSelector(state => state.arrayReducer.editing)
 	return (
 		!editing && (
-			<ol>
+			<ul>
 				{array.map((element, i) => {
 					return (
 						<li id={i} key={i}>
+							<input type="checkbox" name="" id="" />
 							{element}
 							<button onClick={() => dispatch(removeElement(i))}>REMOVE</button>
 							<button onClick={() => dispatch(startEditElement(i))}>EDIT</button>
 						</li>
 					)
 				})}
-			</ol>
+			</ul>
 		)
 	)
 }

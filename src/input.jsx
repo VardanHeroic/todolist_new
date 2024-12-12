@@ -15,7 +15,7 @@ export default function Input() {
 	}, [editing, array])
 
 	return (
-		<div>
+		<div className="mx-auto">
 			<input ref={text} onChange={e => (text.current.value = e.target.value)}></input>
 			<button onClick={() => dispatch(editing ? endEditElement(text.current.value) : addElement(text.current.value))}>
 				{editing ? "EDIT" : "ADD"}
