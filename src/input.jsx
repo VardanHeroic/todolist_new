@@ -18,7 +18,7 @@ export default function Input() {
 	return (
 		<div className="grid gap-10 grid-cols-5 ">
 			<input
-				className="rounded-lg border-2 border-gray-400 col-span-4"
+				className="rounded-lg pl-2 border-2 border-gray-400 col-span-4"
 				ref={text}
 				onChange={e => (text.current.value = e.target.value)}
 			></input>
