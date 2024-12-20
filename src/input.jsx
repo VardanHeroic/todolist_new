@@ -16,14 +16,14 @@ export default function Input() {
 	}, [editing, array])
 
 	return (
-		<div className="grid gap-10 grid-cols-5 ">
+		<div className="grid sm:gap-10 gap-2 grid-cols-5 ">
 			<input
 				className="rounded-lg pl-2 border-2 border-gray-400 col-span-4"
 				ref={text}
 				onChange={e => (text.current.value = e.target.value)}
 			></input>
 			<button
-				className="rounded-lg p-1 bg-green-700 text-white col-span-1 text-center"
+				className="rounded-lg p-1 text-white col-span-1 text-center transition-colors border-2 border-white bg-green-700 hover:bg-gray-100 hover:text-gray-900 hover:border-gray-900 "
 				onClick={() => dispatch(editing ? endEditElement(text.current.value) : addElement(text.current.value))}
 			>
 				{editing ? <PencilSquareIcon className="size-6 mx-auto" /> : <PlusIcon className="size-6 mx-auto" />}
