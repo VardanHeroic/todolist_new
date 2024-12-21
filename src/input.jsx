@@ -11,7 +11,7 @@ export default function Input() {
 
 	useEffect(() => {
 		if (editing) {
-			text.current.value = array[editing]
+			text.current.value = array.find(task => task.id === editing).text
 		}
 	}, [editing, array])
 
