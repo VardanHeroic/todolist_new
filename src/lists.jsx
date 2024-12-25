@@ -7,8 +7,8 @@ const Lists = () => {
 	return (
 		!editing && (
 			<div>
-				<List array={array.filter(task => !task.isDone)} />
-				<List array={array.filter(task => task.isDone)} />
+				<List array={array.filter(task => !task.isDone)} name={"Pending"} />
+				<List array={array.filter(task => task.isDone)} name={"Completed"} />
 			</div>
 		)
 	)
