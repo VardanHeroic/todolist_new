@@ -6,7 +6,7 @@ const Lists = () => {
 	const editing = useSelector(state => state.arrayReducer.editing)
 	return (
 		!editing && (
-			<div>
+			<div className="mt-6">
 				<List array={array.filter(task => !task.isDone)} name={"Pending"} />
 				<List array={array.filter(task => task.isDone)} name={"Completed"} />
 			</div>

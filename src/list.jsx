@@ -1,4 +1,4 @@
-import { MinusIcon } from "@heroicons/react/24/solid"
+import { MinusIcon, ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid"
 import { PencilIcon } from "@heroicons/react/16/solid"
 import { useDispatch } from "react-redux"
 import { removeElement, startEditElement, toggleDone } from "./store/arraySlice"
@@ -6,14 +6,15 @@ import { useState } from "react"
 
 export default function Lists({ array, name }) {
 	const dispatch = useDispatch()
-	const [isOpen, setIsOpen] = useState(name === "Pending")
+	const isPending = name === "Pending"
+	const [isOpen, setIsOpen] = useState(isPending)
 	return (
-		<>
-			<button onClick={() => setIsOpen(!isOpen)}>{name}</button>
-			<ul
-				style={{ maxHeight: `${isOpen ? 50 * array.length : 0}px` }}
-				className={`mt-4  transition-all duration-500 overflow-hidden `}
-			>
+		<div className="mt-4">
+			<button className="w-full py-2 mb-3 border-b-gray-300 border-b text-left" onClick={() => setIsOpen(!isOpen)}>
+				{isOpen ? <ChevronDownIcon className="size-5 mr-2 inline" /> : <ChevronUpIcon className="size-5 mr-2 inline" />}
+				{name}
+			</button>
+			<ul style={{ maxHeight: `${isOpen ? 48 * array.length : 0}px` }} className={`transition-all duration-1000 overflow-hidden `}>
 				{array.map(task => {
 					return (
 						<li id={task.id} key={task.id} className="flex justify-between">
@@ -24,7 +25,7 @@ export default function Lists({ array, name }) {
 									onChange={() => dispatch(toggleDone(task.id))}
 									className="mr-2 cursor-pointer accent-yellow-700"
 								/>
-								<label className="cursor-default break-words">{task.text}</label>
+								<label className={`cursor-default break-words ${isPending ? "" : "line-through"}`}>{task.text}</label>
 							</div>
 							<div className="text-nowrap">
 								<button className="p-1" onClick={() => dispatch(removeElement(task.id))}>
@@ -38,6 +39,6 @@ export default function Lists({ array, name }) {
 					)
 				})}
 			</ul>
-		</>
+		</div>
 	)
 }
