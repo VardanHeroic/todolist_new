@@ -4,30 +4,39 @@ const arraySlice = createSlice({
 	name: "arraySlice",
 	initialState: {
 		array: [],
-		editing: null,
+		chosen: null,
+		status: null,
 		lastId: 0,
 	},
 	reducers: {
-		addElement(state, action) {
-			state.array.push({ text: action.payload, isDone: false, id: state.lastId++ + "" })
+		addTask(state, action) {
+			state.array.push({ text: action.payload, isDone: false, subtasks: [], id: state.lastId++ + "" })
 		},
 		toggleDone(state, action) {
-			const task = state.array.find(task => task.id === action.payload)
+			const task = state.array.recursiveFind(action.payload)
 			task.isDone = !task.isDone
 		},
-		removeElement(state, action) {
-			state.array = state.array.filter(task => task.id !== action.payload)
+		removeTask(state, action) {
+			state.array.recursiveFind(action.payload, true)
 		},
-		startEditElement(state, action) {
-			state.editing = action.payload
+		chooseTask(state, action) {
+			state.chosen = action.payload.id
+			state.status = action.payload.status
 		},
-		endEditElement(state, action) {
-			const task = state.array.find(task => task.id === state.editing)
+		editTask(state, action) {
+			const task = state.array.recursiveFind(state.chosen)
 			task.text = action.payload
-			state.editing = null
+			state.chosen = null
+			state.status = null
+		},
+		addSubTask(state, action) {
+			const task = state.array.recursiveFind(state.chosen)
+			task.subtasks.push({ text: action.payload, isDone: false, subtasks: [], id: state.lastId++ + "" })
+			state.chosen = null
+			state.status = null
 		},
 	},
 })
 
-export const { addElement, removeElement, startEditElement, endEditElement, toggleDone } = arraySlice.actions
+export const { addTask, removeTask, chooseTask, editTask, toggleDone, addSubTask } = arraySlice.actions
 export default arraySlice.reducer

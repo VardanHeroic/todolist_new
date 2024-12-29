@@ -3,9 +3,9 @@ import { useSelector } from "react-redux"
 
 const Lists = () => {
 	const array = useSelector(state => state.arrayReducer.array)
-	const editing = useSelector(state => state.arrayReducer.editing)
+	const chosen = useSelector(state => state.arrayReducer.chosen)
 	return (
-		!editing && (
+		!chosen && (
 			<div className="mt-6">
 				<List array={array.filter(task => !task.isDone)} name={"Pending"} />
 				<List array={array.filter(task => task.isDone)} name={"Completed"} />
